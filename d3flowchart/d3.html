@@ -7,13 +7,13 @@
         <script type="text/javascript" src="./d3.layout.js"></script>
 
         <style type="text/css">
-            .node circle { 
+            .node circle {
                 cursor: pointer;
                 fill: #fff;
                 stroke: steelblue;
                 stroke-width: 1.5px;
             }
-            .node text { 
+            .node text {
                 font-size: 11px;
             }
             path.link{
@@ -24,7 +24,7 @@
             .pure-g {
                 *letter-spacing: normal;
                 *word-spacing: -0.43em;
-                text-rendering: optimizespeed; 
+                text-rendering: optimizespeed;
                 display: flex;
                 display: -webkit-flex;
                 -webkit-flex-flow: row wrap;
@@ -56,7 +56,7 @@
             }
         </style>
     </head>
-    
+
     <body>
         <div class="pure-g">
             <div class="pure-u-1-2">
@@ -257,6 +257,7 @@
                 currentNode = data;
                 var str = '<ul>';
                 selectNode(currentNode);
+                str += '</ul>';
                 $(".tree-node").html(str)
                 function selectNode(node) {
                     if(node != null) {
@@ -282,30 +283,42 @@
                     }else {
                         $this.parent().append(`<ul><li><span>${newChildTree}</span>&nbsp;&nbsp;&nbsp;<button class="addChildtree">+</button></li></ul>`)
                     }
-               
+
                     // 此处向root插入数据，还是没搞出来
-                    //inserttree(root, currentvalue, newChildTree)
-                    // @TODO 节点所在数据位置 
-                    /*function inserttree(json, currentvalue, newChildTree) {
+                    root = inserttree(root, currentvalue, newChildTree);
+                    update(root)
+                    // @TODO 节点所在数据位置
+                    function inserttree(json, currentvalue, newChildTree) {
+                        var currentNode = json;
                         if(newChildTree != "" && newChildTree != null) {
-                            var currentNode = json;
                             if(currentNode.name == currentvalue) {
-                                if(currentNode.children instanceof Array) {
+                                // 如果当前处于收缩状态则是_children有值
+                                // 如果是展开则是children有值
+                                // 1. 判断节点有子节点则其children为一个数组或者null，否则则为undefined
+                                // 2. 如果是数组的话，则push到children里，如果是null，则push到_children里
+                                
+                                if(currentNode.children === null){
+                                    currentNode._children.push({"name": newChildTree});
+                                }else if(currentNode.children instanceof Array) {
                                     currentNode.children.push({"name": newChildTree});
                                 }else {
                                     currentNode.children = [];
                                     currentNode.children.push({"name": newChildTree});
                                 }
                             }else {
-                                if(currentNode.children != null && currentNode.children.length > 0) {
+                                if(currentNode.children === null) {
+                                    for(var i = 0; i < currentNode._children.length; i++) {
+                                        inserttree(currentNode._children[i], currentvalue, newChildTree);
+                                    }
+                                }else if(currentNode.children instanceof Array) {
                                     for(var i = 0; i < currentNode.children.length; i++) {
                                         inserttree(currentNode.children[i], currentvalue, newChildTree);
                                     }
                                 }
                             }
                         }
-                        json = currentNode;
-                    }*/
+                        return currentNode;
+                    }
                 }
             })
         </script>
