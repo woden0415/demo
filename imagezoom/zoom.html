@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh">
+<head>
+   <meta charset="UTF-8">
+   <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>
+</head>
+<body>
+    <img class="lalala" src="./img.png">
+<script>
+    /*img标签的选择器*/
+    function zoomImg(selector){
+        function getImgNaturalDimensions(img) {
+            var nWidth, nHeight
+            if (img.naturalWidth) { // 现代浏览器
+                nWidth = img.naturalWidth
+                nHeight = img.naturalHeight
+            } else { // IE6/7/8
+                var image = new Image()
+                image.src = img.src;
+                nWidth = image.width;
+                nHeight = image.height;
+            }
+            return [nWidth, nHeight]
+        }
+        $(document).on("click", selector, function(){
+            var imgUrl = $(this).attr("src");
+            var winWidth = $(window).width();
+            var winHeight = $(window).height();
+
+            var imgRealWidth = getImgNaturalDimensions(this)[0];
+            var imgRealHeight = getImgNaturalDimensions(this)[1];
+            var imgWidth
+            var imgHeight
+            if(imgRealWidth > winWidth) {
+                imgWidth = imgRealWidth*0.8;
+                imgHeight = imgRealHeight*0.8;
+            }else {
+                imgWidth = imgRealWidth;
+                imgHeight = imgRealHeight;
+            }
+            $("body").append('<div class="img-bg" style="position: fixed; width: '+winWidth+'px;height: '+winHeight+'px;background-color: rgba(0,0,0,0.46); top: 0;left: 0;z-index: 2017;"><img class="img-zoom" style="width: '+imgWidth+'px; height: '+imgHeight+'px; position: relative;top: 50%;left: 50%;margin-left:-'+imgWidth/2+'px;  margin-top: -'+imgHeight/2+'px;" src="'+imgUrl+'" /></div>');
+        });
+        $(document).on("click", ".img-bg", function(){
+            $(this).remove();
+        });
+    }
+    zoomImg(".lalala");
+</script>
+</body>
+</html>
