@@ -1,0 +1,19 @@
+{
+  "name": "spiderlagou",
+  "version": "1.0.0",
+  "description": "爬取拉钩招聘信息",
+  "main": "index.js",
+  "keywords": [
+    "nodejs",
+    "spider"
+  ],
+  "author": "woden0415",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.15.4",
+    "request": "^2.81.0",
+    "superagent": "^3.6.0",
+    "superagent-proxy": "^1.0.2"
+  }
+}
