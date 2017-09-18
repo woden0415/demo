@@ -1,0 +1,46 @@
+.page {
+  padding: 40px 0;
+}
+.page ul li a.pure-button {
+  margin: 0 2px;
+  border-radius: 3px;
+  font-size: 14px;
+  font-family: Monaco, Menlo, Consolas, "Courier New", "FontAwesome", monospace;
+  color: #444;
+  padding: 0.5em 1.2em;
+  background: #f7f7f7;
+  border: 1px solid #e2e2e2;
+}
+.page ul li a.pure-button:hover,
+.page ul li a.pure-button:focus {
+  text-decoration: none;
+  filter: alpha(opacity=100);
+  background: #004e98;
+  color: #fff;
+  border: 1px solid #004e98;
+}
+.page ul li a.prev,
+.page ul li a.next {
+  text-shadow: none;
+}
+.page ul li a.pure-button-active,
+.page ul li a.pure-button:active {
+  background: #004e98;
+  border: 1px solid #004e98;
+  box-shadow: none;
+  color: #fff;
+}
+.page ul li a.disabled {
+  border: 1px solid #e2e2e2;
+  background: #fff;
+  color: #e2e2e2;
+  cursor: default;
+}
+.page ul li a.disabled:hover,
+.page ul li a.disabled:focus,
+.page ul li a.disabled:active {
+  border: 1px solid #e2e2e2;
+  background: #fff;
+  color: #e2e2e2;
+  cursor: default;
+}

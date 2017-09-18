@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="./libs/pure-0.5.0.css">
+  <link rel="stylesheet" href="./libs/paging.css">
+  <script src="./libs/jquery-2.2.1.js"></script>
+  <script src="./libs/handlebars-4.0.5.js"></script>
+  <script src="./libs/paging.js"></script>
+</head>
+
+<body>
+  <div class="table-box">
+    <table class="pure-table">
+      <thead>
+        <tr>
+          <th>证券代码</th>
+          <th>证券简称</th>
+          <th>保证金比例</th>
+          <th>交易所</th>
+        </tr>
+      </thead>
+      <tbody id="margin-panel"></tbody>
+    </table>
+    <div class="page">
+      <ul class="pure-paginator">
+        <li><a class="pure-button first" href="javascript:void(0)" data-page-index="1">首页</a></li>
+        <li><a class="pure-button prev" href="javascript:void(0)">上一页</a></li>
+        <li class="pageBtnGroup"></li>
+        <li><a class="pure-button next" href="javascript:void(0)">下一页</a></li>
+        <li><a class="pure-button last" href="javascript:void(0)" data-page-index="">尾页</a></li>
+      </ul>
+    </div>
+  </div>
+  <script id="finamceStocks-template" type="text/x-handlebars-template">
+    {{#each stocksdata}}
+      <tr>
+        <td>{{secCode}}</td>
+        <td>{{secAbbr}}</td>
+        <td>{{rate}}</td>
+        <td>{{branch}}</td>
+      </tr>
+    {{/each}}
+  </script>
+  <script>
+    $.ajax({
+      type: 'GET',
+      url: './data.json',
+      dataType: 'json',
+      success: function(data){
+        var stocksdata = data.offset;
+        $(".pure-paginator").paging({
+            data           : stocksdata,                   /*所有数据*/
+            numBtnOnepage  : 5,                            /*带页数的按钮数量*/
+            numOnePage     : 10,                            /*每页显示数据*/
+            btnGroupLoc    : ".pageBtnGroup",              /*带页数按钮组容器*/
+            tpl            : "#finamceStocks-template",    /*数据展示视图模板*/
+            tplParam       : "stocksdata",                 /*视图模板参数对象*/
+            dataLoc        : "#margin-panel"               /*数据展示容器*/
+        });
+      }
+    })
+  </script>
+</body>
+
+</html>
