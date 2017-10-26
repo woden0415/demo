@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <title>Image preview example</title>
+    <script type="text/javascript">
+      /*function imageToCanvas(image) {
+        var canvas = document.createElement("canvas");
+        canvas.width = image.width;
+        canvas.height = image.height;
+        canvas.getContext("2d").drawImage(image,0,0);
+        return canvas;
+      }
+      function canvasToImage(canvas) {
+        var img = new Image();
+        var newImageData = canvas.toDataURL('');
+        img.src = newImageData;
+        return img;
+      }*/
+
+      function compress(source_img_obj, quality, output_format) {
+        var mime_type = "image/jpeg";
+        var cvs = document.createElement('canvas');
+        cvs.width = source_img_obj.width;
+        cvs.height = source_img_obj.height;
+        var ctx = cvs.getContext("2d").drawImage(source_img_obj, 0, 0);
+
+        var newImageData = cvs.toDataURL(mime_type, quality);
+
+        var result_image_obj = new Image();
+        result_image_obj.src = newImageData;
+        return {
+          "result_image_obj": result_image_obj,
+          "newImageData": newImageData
+        };
+      }
+      var oFReader = new FileReader();
+      var imgSize
+      var fitSize = 400 * 1024
+      var ratio = 100
+      oFReader.onload = function(oFREvent) {
+        document.getElementById("uploadPreview").src = oFREvent.target.result;
+        var oImage = new Image()
+        oImage.src = oFREvent.target.result
+        oImage.onload = function() {
+          document.getElementById("uploadPreview").src = compress(oImage, ratio).newImageData
+        }
+      }
+      function loadImageFile() {
+        var oFile = document.getElementById("uploadImage").files[0];
+        imgSize = oFile.size
+        if (imgSize > fitSize) {
+          ratio = fitSize/Number(imgSize)
+          console.log(imgSize)
+          console.log(ratio)
+        }
+        oFReader.readAsDataURL(oFile);
+      }
+    </script>
+</head>
+
+<body>
+    <form name="uploadForm">
+        <table>
+            <tbody>
+                <tr>
+                    <td><img id="uploadPreview" style="width: 100px; height: 100px;" src="" alt="Image preview" /></td>
+                    <td>
+                        <input id="uploadImage" type="file" name="myPhoto" onchange="loadImageFile();" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            <input type="submit" value="Send" />
+        </p>
+    </form>
+</body>
+
+</html>
