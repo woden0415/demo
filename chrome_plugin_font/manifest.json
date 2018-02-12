@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+
+  "name": "思源黑体 Regular",
+  "description": "修改页面字体为思源黑体 Regular",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": {
+      "19": "icons/font19.png",
+      "38": "icons/font38.png"
+    },
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+     {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["./front/myfonts.js"]
+    }
+  ],
+  "permissions": [
+    "http://*/*",
+    "https://*/*"
+  ]
+}
