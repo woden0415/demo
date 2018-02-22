@@ -1,0 +1,21 @@
+{
+  "name": "gulp_workspace",
+  "version": "1.0.0",
+  "description": "",
+  "author": "woden0415@163.com",
+  "scripts": {
+    "dev": "gulp run:dev"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.18.13",
+    "gulp": "^3.9.1",
+    "gulp-changed": "^3.1.0",
+    "gulp-clean": "^0.3.2",
+    "gulp-file-include": "^1.1.0",
+    "gulp-less": "^3.3.2",
+    "gulp-plumber": "^1.1.0",
+    "gulp-util": "^3.0.8",
+    "gulp-watch": "^4.3.11"
+  }
+}
