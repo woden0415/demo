@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="viewport" content="width=device-width">
+    <title>太极</title>
+    <style type="text/css">
+      body {
+        background-color: gray;
+      }
+
+      .taiji {
+        width: 600px;
+        height: 600px;
+        background: linear-gradient(black 50%, white 0);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: r 2s linear infinite
+      }
+
+      @keyframes r {
+        to {
+          transform: rotate(1turn);
+        }
+      }
+
+      .taiji:before,
+      .taiji:after {
+        content: '';
+        display: block;
+        width: 50%;
+        height: 50%;
+        border-radius: 50%;
+      }
+
+      .taiji:before {
+        background: radial-gradient(#000, #000 33%, #fff 33%);
+      }
+
+      .taiji:after {
+        background: radial-gradient(#fff, #fff 33%, #000 33%);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="taiji"></div>
+  </body>
+  <script>
+
+  </script>
+
+</html>
