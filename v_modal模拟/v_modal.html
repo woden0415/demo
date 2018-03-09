@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <input type="text" v-modal="a">
+        <div class="wd" v-bind="a"></div>
+        <hr>
+        <input type="text" v-modal="b">
+        <div class="wd" v-bind="b"></div>
+        <hr>
+        <!-- <input type="text" v-modal="c"> -->
+        <div class="wd" v-bind="c"></div>
+        <hr>
+    </body>
+    <script>
+        var obj = {
+            a: 0,
+            b: 1,
+            c: '12312',
+            d: 123123
+        };
+        function mounted(vm) {
+            Object.keys(vm).forEach(function (key, index, arr) {
+                var bindObj = document.querySelector('[v-bind=' + key + ']')
+                var modalObj = document.querySelector('[v-modal=' + key + ']')
+
+                if (bindObj) {
+                    assignOpt(key, bindObj);
+                    var tmp = vm[key];
+                    Object.defineProperty(vm, key, {
+                        set: function (newValue) {
+                            assignOpt(key, bindObj, newValue)
+                        },
+                        get: function () {
+                            return tmp
+                        },
+                        enumerable: true,
+                        configurable: true
+                    })
+
+                    // 数据驱动视图
+                    function assignOpt(key, el, value) {
+                        if (value !== undefined) {
+                            el.innerText = value
+                        } else {
+                            el.innerText = vm[key]
+                        }
+                    }
+                    if (modalObj) {
+                        modalObj.addEventListener("keyup", function() {
+                            if (this.getAttribute("v-modal") === key) {
+                                vm[key] = this.value;
+                            }
+                        })
+                    }
+                }
+
+            })
+        }
+        Array.prototype.forEach.call(document.querySelectorAll("[v-bind]"), function (item, index, arr) {
+            mounted(obj);
+        })
+    </script>
+
+</html>
