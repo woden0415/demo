@@ -1,0 +1,39 @@
+{
+  "extends": [
+    "eslint-config-alloy/react"
+  ],
+  "env": {
+    "node": true,
+    "es6": true,
+    "browser": true
+  },
+  "globals": {
+    "React": false,
+    "ReactDOM": false,
+    "define": false,
+    "CtripUtil": true,
+  },
+  "rules": {
+    "indent": [
+      "error", 2, {
+        "SwitchCase": 1,
+        "flatTernaryExpressions": true
+      }
+    ],
+    "react/jsx-indent": [
+      "error", 2
+    ],
+    "react/jsx-indent-props": [
+      "error", 2
+    ],
+    "no-param-reassign": 0,
+    "no-template-curly-in-string": "off",
+    "no-unused-vars": "off",  // 可以声明不使用
+    "no-useless-constructor": "off", // 允许有空的构造器
+    "no-undefined": "off", // 允许使用undefined
+    "complexity": "off",
+    "array-callback-return": "off", // 允许数组循环不return
+    "max-nested-callbacks": "off", // 关闭数组嵌套不能超过三层限制
+    "no-var": "off" // 允许使用var
+  }
+}
